@@ -24,11 +24,6 @@ memory.json
 *.sqlite
 
 # Generated Files
-*.png
-*.jpg
-*.jpeg
-*.svg
-*.pdf
 *.log
 logs/
 
@@ -70,9 +65,3 @@ htmlcov/
 *.tar
 *.gz
 *.rar
-
-# Videos (large files)
-*.mp4
-*.mov
-*.avi
-*.flv
