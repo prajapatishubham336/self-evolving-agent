@@ -73,9 +73,8 @@ class SupervisorAgent:
         return state
 
     def generate_final_report(self):
-        # 🔥 Yeh function ab use nahi ho raha, but agar ho toh model change karo
         llm = ChatGroq(
-            model="groq/compound-mini",  # 🔥 FIXED
+            model="openai/gpt-oss-20b", 
             temperature=0.2,
             api_key=os.getenv("GROQ_API_KEY")
         )

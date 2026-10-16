@@ -1,354 +1,163 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python" />
-  <img src="https://img.shields.io/badge/LangGraph-Agentic%20AI-orange?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Groq-LLM-blueviolet?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/Streamlit-Interactive%20UI-red?style=for-the-badge&logo=streamlit" />
-  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python" alt="Python 3.11+" />
+  <img src="https://img.shields.io/badge/LLM-Groq-blueviolet?style=for-the-badge" alt="Groq LLM" />
+  <img src="https://img.shields.io/badge/UI-Streamlit-red?style=for-the-badge&logo=streamlit" alt="Streamlit" />
+  <img src="https://img.shields.io/badge/AI-Agentic%20AI-orange?style=for-the-badge" alt="Agentic AI" />
 </p>
 
 <h1 align="center">🧠 Self-Evolving Agent</h1>
 
-<h3 align="center">
-Tree of Thoughts • Reflexion • Episodic Memory • Agentic AI
-</h3>
+<h3 align="center">Tree of Thoughts · Candidate Evaluation · Reflexion · Episodic Memory</h3>
+
+<p align="center"><em>An experimental agentic AI application that explores multiple solution approaches, evaluates candidates, reflects on outcomes, and uses stored lessons to guide future responses.</em></p>
+
+<p align="center"><strong>Created by Shubham Prajapati · AI Engineer</strong></p>
 
 <p align="center">
-  <i>An AI agent that learns from reasoning attempts and uses past lessons to improve future responses.</i> 🚀
-</p>
-
-<p align="center">
-  <img src="images/dashboard.png" alt="Self-Evolving Agent Dashboard" width="900"/>
+  <img src="images/dashboard.png" alt="Self-Evolving Agent dashboard" width="900" />
 </p>
 
 ---
 
 ## 🌟 Overview
 
-**Self-Evolving Agent** is an experimental **Agentic AI system** designed to generate multiple reasoning approaches, evaluate their quality, select the strongest approach, reflect on the result, and store useful lessons for future interactions.
+**Self-Evolving Agent** is an experimental Agentic AI project built to go beyond a single prompt-and-response interaction. Given a task, the agent can generate candidate approaches, evaluate them, select a promising result, and use reflection or memory components where supported by the current implementation.
 
-The project combines:
+![alt text](image.png)
 
-- 🌳 **Tree of Thoughts (ToT)**
-- 📊 **LLM-based Path Evaluation**
-- 🏆 **Best Path Selection**
-- 🔄 **Reflexion**
-- 🧠 **Episodic Memory**
-- 🤖 **Supervisor-based Agent Orchestration**
-- ⚡ **Groq LLM Inference**
-- 🖥️ **Interactive Streamlit Dashboard**
+### Core loop
 
-The central idea is simple:
+**Generate → Evaluate → Select → Reflect → Remember → Improve**
 
-> **Generate → Evaluate → Select → Reflect → Remember → Improve**
+The project explores these concepts:
+
+- 🌳 **Tree of Thoughts:** generate more than one candidate approach.
+- 📊 **Candidate Evaluation:** assess candidate quality against task requirements.
+- 🏆 **Best-Path Selection:** choose a strong candidate based on evaluation results.
+- 🔄 **Reflexion:** identify strengths, gaps, and possible improvements.
+- 🧠 **Episodic Memory:** retain useful lessons when memory storage is configured.
+- 🤖 **Supervisor Orchestration:** coordinate the agent workflow.
+- ⚡ **Groq LLM Inference:** connect to a supported Groq model.
+- 🖥️ **Streamlit Dashboard:** interact with the agent through a web UI.
+
+> **Note:** The exact behavior depends on the modules and configuration present in your local project. The README describes the intended workflow; only claim persistent learning or a feature as complete if it is implemented and tested in your current codebase.
 
 ---
 
-# 🏗️ Architecture
+## 🏗️ Architecture
 
 ```mermaid
 flowchart TD
-
-    A[👤 User Query] --> B[🧠 Supervisor Agent]
-
-    B --> C[🌳 Thought Generator]
-
-    C --> P1[💭 Reasoning Path 1]
-    C --> P2[💭 Reasoning Path 2]
-    C --> P3[💭 Reasoning Path 3]
-    C --> P4[💭 Reasoning Path 4]
-
-    P1 --> E[📊 Evaluator Agent]
-    P2 --> E
-    P3 --> E
-    P4 --> E
-
-    E --> S[🏆 Best Path Selector]
-
-    S --> R[🔄 Reflexion Agent]
-
-    R --> M[🧠 Episodic Memory]
-
-    M --> L[📚 Stored Lessons]
-
-    L -. Previous Learning .-> C
-
-    S --> F[✅ Final Answer]
+    A[User Task] --> B[Supervisor Agent]
+    B --> C[Thought Generator]
+    C --> P1[Candidate Path 1]
+    C --> P2[Candidate Path 2]
+    C --> P3[Candidate Path 3]
+    P1 --> D[Candidate Evaluator]
+    P2 --> D
+    P3 --> D
+    D --> E[Best-Path Selection]
+    E --> F[Final Response]
+    E --> G[Reflexion]
+    G --> H[Episodic Memory]
+    H -. Useful lessons for later tasks .-> C
 ```
 
----
+## 🔄 Workflow
 
-# 🔄 Agent Workflow
+1. **Enter a task** in the Streamlit dashboard.
+2. **Generate candidates** using the thought-generation component.
+3. **Evaluate candidate paths** using the evaluation logic available in the project.
+4. **Select a candidate** to help produce the final response.
+5. **Reflect on the result** to identify strengths or possible improvements.
+6. **Store and reuse lessons** if episodic-memory persistence and retrieval are enabled.
 
-```text
-                    USER QUERY
-                         │
-                         ▼
-               ┌───────────────────┐
-               │  SUPERVISOR AGENT │
-               └─────────┬─────────┘
-                         │
-                         ▼
-               ┌───────────────────┐
-               │ THOUGHT GENERATOR │
-               └─────────┬─────────┘
-                         │
-          ┌──────────────┼──────────────┐
-          ▼              ▼              ▼
-       PATH 1         PATH 2         PATH 3
-          │              │              │
-          └──────────────┼──────────────┘
-                         ▼
-               ┌───────────────────┐
-               │ EVALUATOR AGENT   │
-               │                   │
-               │ Relevance         │
-               │ Coherence         │
-               │ Completeness      │
-               │ Accuracy          │
-               └─────────┬─────────┘
-                         ▼
-               ┌───────────────────┐
-               │ BEST PATH         │
-               │ SELECTION         │
-               └─────────┬─────────┘
-                         ▼
-               ┌───────────────────┐
-               │ REFLEXION AGENT   │
-               └─────────┬─────────┘
-                         ▼
-               ┌───────────────────┐
-               │ EPISODIC MEMORY   │
-               └─────────┬─────────┘
-                         │
-                         ▼
-                    FINAL ANSWER
-```
+## ✨ Features
 
----
-
-# ✨ Key Features
-
-| Feature | Description |
+| Feature | Purpose |
 |---|---|
-| 🌳 **Tree of Thoughts** | Generates multiple candidate reasoning approaches for a query |
-| 📊 **Path Evaluation** | Evaluates generated paths using quality criteria |
-| 🎯 **Relevance Scoring** | Measures how well a path addresses the user's query |
-| 🧩 **Coherence Scoring** | Checks whether reasoning is logically consistent |
-| 📚 **Completeness Scoring** | Evaluates whether important aspects are covered |
-| ✅ **Accuracy Evaluation** | Uses LLM-based evaluation to assess answer quality |
-| 🏆 **Best Path Selection** | Selects the strongest reasoning path |
-| 🔄 **Reflexion** | Analyzes what worked and what could be improved |
-| 🧠 **Episodic Memory** | Stores lessons from previous reasoning attempts |
-| ♻️ **Self-Improvement Loop** | Reuses stored lessons in future reasoning |
-| 🤖 **Supervisor Agent** | Coordinates the complete agent workflow |
-| 🖥️ **Streamlit Dashboard** | Provides an interactive interface |
-| ⚡ **Groq LLM** | Enables fast LLM inference |
+| 🌳 Thought Paths | Explore different approaches to the same task |
+| 📊 Candidate Evaluation | Compare candidate quality |
+| 🏆 Path Selection | Select a promising candidate |
+| 🔄 Reflexion | Capture feedback and improvement opportunities |
+| 🧠 Episodic Memory | Reuse stored lessons when implemented/configured |
+| ⚙️ Agent Settings | Adjust the number of thought paths and iteration limits |
+| 🖥️ Streamlit UI | Run tasks and inspect available results |
+| ⚡ Groq Integration | Generate responses with a configured Groq model |
 
----
+## 🛠️ Tech Stack
 
-# 🧠 Core Concepts
+| Technology | Use |
+|---|---|
+| Python 3.11+ | Core application |
+| Streamlit | Interactive dashboard |
+| Groq API | LLM inference |
+| LangChain Groq integration | Python interface to supported Groq chat models, if used by the current environment |
+| python-dotenv | Load environment variables from `.env` |
+| Agent modules | Thought generation, supervision, evaluation, selection, and reflection as implemented in the project |
 
-## 🌳 1. Tree of Thoughts
+If your current implementation uses LangGraph or another orchestration framework, list its exact version and role here after confirming it in `requirements.txt` and the source code.
 
-Instead of relying on only one reasoning approach, the system generates multiple possible approaches.
+## 📂 Project Structure
 
-```text
-Question
-   │
-   ├── Path 1 → Direct Technical Explanation
-   │
-   ├── Path 2 → Step-by-Step Reasoning
-   │
-   ├── Path 3 → Example-Based Explanation
-   │
-   └── Path 4 → Alternative Perspective
-```
-
-Each path represents a different approach to solving the same problem.
-
----
-
-## 📊 2. Path Evaluation
-
-Every generated path is evaluated using multiple criteria:
-
-```text
-Final Score =
-    Relevance
-  + Coherence
-  + Completeness
-  + Accuracy
-```
-
-The evaluator helps identify which reasoning approach is strongest for the current query.
-
----
-
-## 🏆 3. Best Path Selection
-
-After evaluation:
-
-```text
-Path 1 → Score: 78
-Path 2 → Score: 91  ⭐ Selected
-Path 3 → Score: 84
-Path 4 → Score: 76
-```
-
-The highest-quality candidate is selected as the best reasoning path.
-
----
-
-## 🔄 4. Reflexion
-
-The Reflexion component analyzes the selected result and asks questions such as:
-
-- What worked well?
-- What could be improved?
-- Was important information missing?
-- What mistake should be avoided next time?
-
-Example:
-
-```text
-Strength:
-The answer clearly explained the core concept.
-
-Improvement:
-Add a practical example for better understanding.
-
-Lesson:
-For conceptual questions, explain the definition first
-and then provide a real-world example.
-```
-
----
-
-## 🧠 5. Episodic Memory
-
-Lessons generated through Reflexion are stored in memory.
-
-```text
-Interaction 1
-      │
-      ▼
-Reasoning Attempt
-      │
-      ▼
-Reflexion
-      │
-      ▼
-Lesson Stored
-      │
-      ▼
-Episodic Memory
-      │
-      ▼
-Future Queries
-      │
-      ▼
-Better Reasoning Guidance
-```
-
-This allows the system to reuse previous feedback rather than treating every interaction completely independently.
-
----
-
-# 📂 Project Structure
+A typical layout for this project may look like this; adjust it to match the files in your repository:
 
 ```text
 self-evolving-agent/
-│
 ├── src/
-│   │
 │   ├── agents/
-│   │   ├── __init__.py
 │   │   ├── supervisor.py
 │   │   ├── thought_generator.py
-│   │   ├── evaluator.py
-│   │   ├── selector.py
-│   │   └── reflexion.py
-│   │
+│   │   ├── evaluator.py          
+│   │   ├── selector.py           
+│   │   └── reflexion.py          
 │   ├── memory/
-│   │   ├── __init__.py
-│   │   └── episodic_memory.py
-│   │
+│   │   └── episodic_memory.py    
 │   ├── graph/
-│   │   ├── __init__.py
-│   │   └── workflow.py
-│   │
-│   ├── config/
-│   │   ├── __init__.py
-│   │   └── settings.py
-│   │
+│   │   └── workflow.py          
+│   ├── state.py
 │   └── app.py
-│
 ├── images/
-│   ├── dashboard.png
-│   └── workflow.png
-│
-├── demo/
-│   └── demo.mp4
-│
+│   └── dashboard.png
 ├── requirements.txt
 ├── .env.example
 ├── .gitignore
 └── README.md
 ```
 
-> **Note:** The exact folder structure may vary depending on the current implementation of the project.
+## 🚀 Getting Started
 
----
+### 1. Get the project
 
-# 🛠️ Tech Stack
-
-| Layer | Technology | Purpose |
-|---|---|---|
-| 🐍 Language | Python | Core application development |
-| 🤖 Agent Framework | LangGraph | Agent workflow and orchestration |
-| 🧠 LLM | Groq | Fast LLM inference |
-| 🌳 Reasoning | Tree of Thoughts | Multiple reasoning paths |
-| 🔄 Learning | Reflexion | Learning from previous attempts |
-| 💾 Memory | JSON / Python Storage | Episodic memory |
-| 🖥️ Frontend | Streamlit | Interactive user interface |
-| ⚙️ Configuration | Python-Dotenv | Environment variable management |
-
----
-
-# 🚀 Getting Started
-
-## 1️⃣ Clone the Repository
+If this is already your local project, open a terminal in the project root. If you have pushed it to your own GitHub repository, clone it using your repository URL:
 
 ```bash
-git clone https://github.com/vaibhav07772/self-evolving-agent.git
+git clone <YOUR_GITHUB_REPOSITORY_URL>
 cd self-evolving-agent
 ```
 
----
+Replace the placeholder with your actual repository URL; do not use another person's repository URL unless it is the intended source.
 
-## 2️⃣ Create Conda Environment
+### 2. Create and activate a Conda environment
 
 ```bash
 conda create -n self-evolve python=3.11 -y
-```
-
-Activate it:
-
-```bash
 conda activate self-evolve
 ```
 
----
-
-## 3️⃣ Install Dependencies
+If you already use an environment named `llmapp`, activate that environment instead:
 
 ```bash
-pip install -r requirements.txt
+conda activate llmapp
 ```
 
----
+### 3. Install dependencies
 
-## 4️⃣ Configure Environment Variables
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 4. Configure the API key
 
 Create a `.env` file in the project root:
 
@@ -356,381 +165,140 @@ Create a `.env` file in the project root:
 GROQ_API_KEY=your_groq_api_key_here
 ```
 
-⚠️ **Never upload your real API key to GitHub.**
+Use a model ID currently supported by your Groq account and the installed `langchain-groq` package. If your code reads a model name from an environment variable, add the matching variable (for example, `GROQ_MODEL`) with the exact name expected by your code.
 
-Make sure `.env` is included in `.gitignore`.
+**Security:** Never commit your real API key. Add `.env` to `.gitignore` and commit only a safe `.env.example` file.
 
-Example:
+Example `.gitignore` entries:
 
-```text
+```gitignore
 .env
 __pycache__/
 *.py[cod]
-.Python
+.venv/
 ```
 
----
+### 5. Start the dashboard
 
-## 5️⃣ Run the Application
+Run the command from the project root:
 
 ```bash
-streamlit run src/app.py
+python -m streamlit run src/app.py
 ```
 
-After starting the application, Streamlit will provide a local URL, typically:
+Streamlit normally prints a local URL such as `http://localhost:8501` in the terminal. Open that URL in your browser.
+
+## 🖥️ Using the Dashboard
+
+1. Open **Overview**.
+2. Enter a question or task in the input area.
+3. Adjust thought-path and iteration settings if needed.
+4. Select **Run Agent**.
+5. Review the final response and any thought paths, candidate scores, reflexion notes, or memory details that your current implementation returns.
+
+![alt text](image-1.png)
+
+### Example test task
 
 ```text
-http://localhost:8501
+Build a machine learning model to predict whether a student will pass or fail
+using study hours, attendance, and previous exam marks. Compare Logistic
+Regression, Decision Tree, and Random Forest. Explain their trade-offs,
+suggest evaluation metrics, and recommend a model with reasons.
 ```
 
-Open it in your browser.
+A useful result should explain the trade-offs and give a reasoned recommendation rather than simply naming a model. Actual output depends on the configured model and implemented agent workflow.
 
----
+## 🧠 Core Concepts
 
-# 🖥️ Dashboard
+### Tree of Thoughts
 
-The Streamlit dashboard allows users to:
+Instead of relying on one initial approach, generate multiple candidate approaches to the same task. For example, one candidate might give a direct explanation, another might compare alternatives, and another might focus on a practical implementation.
 
-- Enter a complex question
-- Configure reasoning settings
-- Generate multiple thought paths
-- Evaluate each path
-- Compare path scores
-- Select the best reasoning approach
-- View reflexion feedback
-- Inspect stored lessons and memory
-- Receive the final answer
+### Candidate Evaluation
 
-<p align="center">
-  <img src="images/dashboard.png" alt="Self-Evolving Agent Dashboard" width="900"/>
-</p>
+Candidates can be assessed against criteria such as relevance, coherence, completeness, and factual support. If the project uses numeric scores, document the actual scoring scale and formula implemented in the evaluator rather than assuming all criteria are summed equally.
 
----
+### Best-Path Selection
 
-# 📸 Project Screenshots
-
-## 🖥️ Dashboard
-
-<p align="center">
-  <img src="images/dashboard.png" alt="Dashboard Screenshot" width="900"/>
-</p>
-
-## 🧠 Agent Workflow / Results
-
-<p align="center">
-  <img src="images/workflow.png" alt="Agent Workflow Screenshot" width="900"/>
-</p>
-
-> If your second image has a different filename, replace `workflow.png` above with the actual filename.
-
----
-
-# 🎥 Demo Video
-
-A complete demonstration of the Self-Evolving Agent is available in the repository.
-
-📁 Video location:
-
-```text
-demo/demo.mp4
-```
-
-You can also add a GitHub Release or external video link here:
-
-**▶️ Demo Video:** Add your demo video link here after uploading it.
-
-> GitHub may not always preview videos directly inside the README depending on the file location and repository rendering. If needed, you can use GitHub Releases for the demo video.
-
----
-
-# 📡 How to Use
-
-### Step 1 — Start the Application
-
-```bash
-streamlit run src/app.py
-```
-
-### Step 2 — Open the Dashboard
-
-Open the Streamlit local URL in your browser.
-
-### Step 3 — Enter a Question
-
-Example:
-
-```text
-Explain Artificial General Intelligence in simple terms.
-```
-
-### Step 4 — Generate Multiple Thought Paths
-
-The Thought Generator creates multiple candidate approaches.
-
-### Step 5 — Evaluate Paths
-
-The Evaluator scores each candidate based on:
-
-```text
-✓ Relevance
-✓ Coherence
-✓ Completeness
-✓ Accuracy
-```
-
-### Step 6 — Select Best Path
-
-The system selects the strongest candidate.
-
-### Step 7 — Run Reflexion
-
-The agent analyzes the result and identifies:
-
-```text
-✓ Strengths
-✓ Weaknesses
-✓ Improvements
-✓ Lessons
-```
-
-### Step 8 — Store the Lesson
-
-Useful feedback is stored in episodic memory and can guide future interactions.
-
----
-
-# 📊 Example
-
-### Question
-
-```text
-What is Artificial General Intelligence?
-```
-
-### Possible Thought Paths
-
-```text
-Path 1:
-Provide a simple definition.
-
-Path 2:
-Explain AGI and compare it with Narrow AI.
-
-Path 3:
-Explain AGI using real-world examples.
-
-Path 4:
-Provide a technical explanation of AGI.
-```
-
-### Evaluation
-
-```text
-Path 1 → 78/100
-Path 2 → 91/100 ⭐
-Path 3 → 85/100
-Path 4 → 82/100
-```
-
-### Selected Path
-
-```text
-Path 2
-```
-
-### Final Answer
-
-> Artificial General Intelligence (AGI) refers to a hypothetical form of AI capable of learning, reasoning, and adapting across many different tasks, rather than being designed for only one specific task.
+The selection component uses the available evaluation output to choose a candidate or guide the final response. Selection quality depends on the evaluator and the quality of the generated candidates.
 
 ### Reflexion
 
-```text
-Strength:
-Clear explanation and useful comparison.
+Reflexion captures what went well, what was missing, and what could be improved. Reflection is feedback for the workflow; by itself, it does not update or train the underlying LLM weights.
 
-Improvement:
-Could include a practical example.
+### Episodic Memory
 
-Lesson Stored:
-For conceptual AI questions, define the concept,
-compare it with existing systems, and provide an example.
+A memory component can save useful lessons from prior tasks and retrieve them later. Whether this memory persists after restarting the application depends on the storage implementation used in the project.
+
+## ⚠️ Troubleshooting
+
+### Groq API or model error
+
+- Confirm `GROQ_API_KEY` is set correctly in `.env`.
+- Check that the model ID is currently supported by Groq and available to your account.
+- Check the installed `langchain-groq` version and the model parameter expected by your code.
+- Reduce the number of thought paths or iterations if the workflow makes too many LLM calls.
+- For rate-limit errors, wait for the limit window to reset and consider retry logic with backoff.
+
+### Python package or import errors
+
+Use the same Python environment to install packages and run Streamlit:
+
+```bash
+conda activate llmapp
+python -c "import sys; print(sys.executable)"
+python -m pip check
+python -m streamlit run src/app.py
 ```
 
----
+Prefer `python -m streamlit` over a standalone `streamlit` command when multiple Python environments are installed.
 
-# ⚠️ Rate Limit Handling
+### Agent state or constructor errors
 
-This project uses the Groq API.
+Check `src/state.py` and `src/agents/supervisor.py` to confirm the state format expected by `SupervisorAgent.run()`. Do not assume that a dictionary and a custom state class are interchangeable; keep the caller and supervisor interface consistent.
 
-If you see an error similar to:
+## 🔮 Possible Future Improvements
 
-```text
-RateLimitError: 429
-rate_limit_exceeded
-```
+- [ ] Persistent memory with a database or vector store
+- [ ] Structured evaluation reports and score visualization
+- [ ] Retry handling and rate-limit backoff
+- [ ] Unit and integration tests for agent components
+- [ ] Exportable run history
+- [ ] FastAPI service layer
+- [ ] Docker packaging and deployment workflow
+- [ ] CI checks and automated testing
+- [ ] Human feedback for candidate evaluation
 
-it means the application has temporarily exceeded the API or model rate limit.
+These are potential improvements, not claims that the features are already implemented.
 
-Example causes:
+## 🤝 Contributing
 
-- Too many agent iterations
-- Too many reasoning paths
-- Multiple LLM calls per query
-- Large prompts
-- High token usage within a short period
-
-Possible solutions:
-
-```text
-1. Wait for the rate limit window to reset
-2. Reduce the number of thought paths
-3. Reduce reflexion iterations
-4. Use shorter prompts
-5. Implement retry logic with exponential backoff
-6. Use a model with different rate limits if available
-```
-
----
-
-# 🔮 Future Improvements
-
-- [ ] Graph of Thoughts (GoT)
-- [ ] Multi-Agent Debate
-- [ ] Multi-Model Evaluation
-- [ ] Self-Consistency Voting
-- [ ] Semantic Memory with Vector Database
-- [ ] Multi-Modal Memory
-- [ ] Human Feedback Integration
-- [ ] Automated Evaluation Benchmarks
-- [ ] FastAPI Backend
-- [ ] Docker Deployment
-- [ ] CI/CD Pipeline
-- [ ] Persistent Database Memory
-- [ ] Production Monitoring
-- [ ] Cloud Deployment
-
----
-
-# 💡 Key Learning Outcomes
-
-This project demonstrates practical understanding of:
-
-- Agentic AI Architecture
-- Multi-Agent Coordination
-- Supervisor Pattern
-- Tree of Thoughts
-- LLM-Based Evaluation
-- Best-of-N Selection
-- Reflexion
-- Episodic Memory
-- Meta-Learning Concepts
-- LangGraph Workflows
-- Prompt Engineering
-- LLM API Integration
-- Streamlit Deployment
-- Rate Limit Awareness
-
----
-
-# 🎯 Why This Project Matters
-
-Traditional LLM applications usually follow:
-
-```text
-Prompt → LLM → Answer
-```
-
-This project explores a more advanced workflow:
-
-```text
-Prompt
-   ↓
-Generate Multiple Reasoning Approaches
-   ↓
-Evaluate Candidates
-   ↓
-Select Best Candidate
-   ↓
-Reflect on Quality
-   ↓
-Store Lessons
-   ↓
-Use Lessons in Future Reasoning
-   ↓
-Improved Agent Behavior
-```
-
-The goal is to move beyond a simple single-pass LLM interaction and experiment with systems that can **evaluate and improve their reasoning workflow over time**.
-
----
-
-# 🤝 Contributing
-
-Contributions are welcome!
-
-If you would like to improve the project:
-
-1. Fork the repository
-2. Create a feature branch
+1. Create a feature branch.
+2. Make a focused change and test it locally.
+3. Commit your work with a clear message.
+4. Open a pull request in your repository.
 
 ```bash
 git checkout -b feature/your-feature
-```
-
-3. Commit your changes
-
-```bash
-git commit -m "Add your feature"
-```
-
-4. Push the branch
-
-```bash
+git add .
+git commit -m "Describe your change"
 git push origin feature/your-feature
 ```
 
-5. Open a Pull Request
+## 📜 License
+
+Add a `LICENSE` file and name the license here once you have chosen one. Do not claim an MIT license unless the repository actually includes that license.
+
+## 👨‍💻 Author
+
+**Shubham Prajapati**  
+*AI Engineer · Agentic AI · Machine Learning*
+
+- GitHub: add your GitHub profile or repository link here.
+- Email: add a public contact email here if you want to share one.
 
 ---
 
-# 📜 License
-
-This project is licensed under the **MIT License**.
-
-You are free to use, modify, and distribute this project.
-
----
-
-# 👨‍💻 Author
-
-## Vaibhav Singh
-
-**Aspiring AI / ML Engineer | NLP | LLMs | RAG | Agentic AI | MLOps**
-
-🐙 GitHub: @vaibhav07772
-
-📧 Email: vs9502778@gmail.com
-
----
-
-# ⭐ Support
-
-If you found this project useful or interesting:
-
-⭐ **Star the repository**
-
-🍴 **Fork the project**
-
-🐛 **Report issues**
-
-💡 **Suggest improvements**
-
----
-
-<p align="center">
-  <b>🧠 Building AI systems that don't just generate answers — but evaluate, reflect, remember, and improve.</b>
-</p>
-
-<p align="center">
-  <i>"An AI that learns how to learn."</i> 🚀
-</p>
+<p align="center"><strong>🧠 Building AI systems that generate, evaluate, reflect, remember, and improve their workflow.</strong></p>
+<p align="center"><em>“An AI that learns how to learn.”</em> 🚀</p>

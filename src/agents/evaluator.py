@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Evaluator:
-    def __init__(self, model="groq/compound-mini"):  # 🔥 FIXED
+    def __init__(self, model="openai/gpt-oss-20b"):  
         self.llm = ChatGroq(
             model=model,
             temperature=0.2,
