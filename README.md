@@ -14,7 +14,8 @@
 <p align="center"><strong>Created by Shubham Prajapati · AI Engineer</strong></p>
 
 <p align="center">
-  <img src="images/dashboard.png" alt="Self-Evolving Agent dashboard" width="900" />
+  <img width="1366" height="642" alt="image" src="https://github.com/user-attachments/assets/2a4de240-3aad-44a1-9436-e9d7a3564fe9" />
+
 </p>
 
 ---
@@ -23,7 +24,6 @@
 
 **Self-Evolving Agent** is an experimental Agentic AI project built to go beyond a single prompt-and-response interaction. Given a task, the agent can generate candidate approaches, evaluate them, select a promising result, and use reflection or memory components where supported by the current implementation.
 
-![alt text](image.png)
 
 ### Core loop
 
@@ -132,7 +132,7 @@ self-evolving-agent/
 If this is already your local project, open a terminal in the project root. If you have pushed it to your own GitHub repository, clone it using your repository URL:
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/prajapatishubham336/self-evolving-agent.git
 cd self-evolving-agent
 ```
 
@@ -295,8 +295,7 @@ Add a `LICENSE` file and name the license here once you have chosen one. Do not 
 **Shubham Prajapati**  
 *AI Engineer · Agentic AI · Machine Learning*
 
-- GitHub: add your GitHub profile or repository link here.
-- Email: add a public contact email here if you want to share one.
+- GitHub: @prajapatishubham336
 
 ---
 
